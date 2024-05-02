@@ -23,4 +23,4 @@ ENV host=0.0.0.0
 
 
 # Specify the command to run when the container starts
-CMD ["nodemon", "src/index.js"]
+CMD ["npm", "start"]
