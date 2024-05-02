@@ -38,8 +38,29 @@ router.post('/', async (req, res) => {
     res.status(500).json({ error: "Error al crear un nuevo cliente" });
   }
   
+});
 
+ //Obtener un cliente por id
+ router.get('/:id', async (req, res) => {
+  const { id } = req.params;
 
-})
+  try {
+    const results = await dbConnection.query('SELECT * FROM Clientes WHERE id = ?', {
+      replacements: [id],
+      type: dbConnection.QueryTypes.SELECT,
+    });
+
+    if (results.length > 0){
+      res.json(results[0]);
+    } else{
+      res.status(404).json({
+        error: 'Cliente no encontrado'
+      });
+    }
+  } catch (error){
+    console.error("Error al ejecutar la consulta SQL:", error);
+    res.status(500).json({ error: "Error al obtener el cliente por ID" });
+  }
+});
 
 module.exports = router;
