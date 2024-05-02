@@ -8,7 +8,6 @@ const port = process.env.PORT || 3030;
 (async () => {
   try{
     await dbConnection.authenticate();
-    await dbConnection.sync();
     console.log('conectado a la base de datos');
   }catch(error){
     throw new Error(error);

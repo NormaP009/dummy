@@ -10,6 +10,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@sequelize/mariadb": "^7.0.0-alpha.40",
     "cors": "^2.8.5",
     "express": "^4.19.2",
     "mariadb": "^3.3.0",
