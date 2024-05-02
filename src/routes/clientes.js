@@ -63,4 +63,22 @@ router.post('/', async (req, res) => {
   }
 });
 
+ //Obtener un cliente por id
+ router.put('/:id', async (req, res) => {
+  const { id } = req.params;
+  const { nombre, correo_electronico, numero_de_telefono, direccion} = req.body;
+
+  try {
+    const results = await dbConnection.query('UPDATE Clientes SET nombre=?, correo_electronico=?, numero_de_telefono=?, direccion=? WHERE id=?', {
+      replacements: [nombre, correo_electronico, numero_de_telefono, direccion, id],
+      type: dbConnection.QueryTypes.UPDATE,
+    });
+
+    res.json(results);
+  } catch (error){
+    console.error("Error al ejecutar la consulta SQL:", error);
+    res.status(500).json({ error: "Error al actualizar el cliente" });
+  }
+});
+
 module.exports = router;
