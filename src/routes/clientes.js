@@ -63,7 +63,7 @@ router.post('/', async (req, res) => {
   }
 });
 
- //Obtener un cliente por id
+ //Editar un cliente
  router.put('/:id', async (req, res) => {
   const { id } = req.params;
   const { nombre, correo_electronico, numero_de_telefono, direccion} = req.body;
@@ -78,6 +78,23 @@ router.post('/', async (req, res) => {
   } catch (error){
     console.error("Error al ejecutar la consulta SQL:", error);
     res.status(500).json({ error: "Error al actualizar el cliente" });
+  }
+});
+
+//Eliminar un cliente
+router.delete('/:id', async (req, res) => {
+  const { id } = req.params;
+  
+  try {
+    const results = await dbConnection.query('DELETE FROM Clientes WHERE id = ?',{
+      replacements: [id],
+      type: dbConnection.QueryTypes.DELETE,
+    });
+
+    res.json(results);
+  } catch (error){
+    console.error("Error al ejecutar la consulta SQL:", error);
+    res.status(500).json({ error: "Error al eliminar el cliente" });
   }
 });
 
